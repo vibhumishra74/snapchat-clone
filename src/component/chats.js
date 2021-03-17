@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import SearchIcon from "@material-ui/icons/Search";
 import "./chats.css";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import Chat from "./Chat";
+import { useSelector } from "react-redux";
+import { selectuser } from "../features/appSlice";
 
 function Chats() {
+  const user = useSelector(selectuser);
   const [posts, setposts] = useState([]);
   useEffect(() => {
     db.collection("posts")
@@ -20,11 +23,18 @@ function Chats() {
         );
       });
   }, []);
+  const signout = () => {
+    auth.signOut();
+  };
   return (
     <div>
       <div className="chats">
         <div className="chats__header">
-          <Avatar className="chat__avatar" />
+          <Avatar
+            src={user.profilepic}
+            onClick={signout}
+            className="chat__avatar"
+          />
           <div className="chats__search">
             <SearchIcon />
             <input placeholder="Friends" type="text" />

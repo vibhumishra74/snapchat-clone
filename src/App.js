@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 // import { app } from "./features/appSlice";
@@ -8,12 +8,29 @@ import Chatview from "./component/Chatview";
 import Login from "./component/Login";
 import Preview from "./component/Preview";
 import WebcampCapture from "./component/WebcampCapture";
-import { selectuser } from "./features/appSlice";
+import { login, logout, selectuser } from "./features/appSlice";
+import { auth } from "./firebase";
 
 function App() {
-  const user = useSelector(selectuser);
+  const user = useSelector(selectuser); //taking user from store
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    auth.onAuthStateChanged((authuser) => {
+      //checking use status
+      if (authuser) {
+        dispatch(
+          login({
+            //checking data from store
+            username: authuser.displayName,
+            profilepic: authuser.photoURL,
+            id: authuser.uid,
+          })
+        );
+      } else {
+        dispatch(logout());
+      }
+    });
+  }, []);
   return (
     <div className="app">
       <BrowserRouter>
