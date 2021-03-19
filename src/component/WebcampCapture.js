@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
-import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import { useDispatch } from "react-redux";
 import { setcameraimage } from "../features/cameraslice";
 import { selectcamera } from "../features/cameraslice";
@@ -35,8 +35,9 @@ function WebcampCapture() {
         width={videoConstraints.width}
         videoConstraints={videoConstraints}
       />
-      <RadioButtonCheckedIcon
+      <RadioButtonUncheckedIcon
         onClick={capture}
+        style={{ color: "black" }}
         fontSize="large"
         className="webcampcapture__button"
       />

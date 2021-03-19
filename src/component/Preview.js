@@ -15,11 +15,13 @@ import "./preview.css";
 import { db, storage } from "../firebase";
 import { v4 as uuid } from "uuid";
 import firebase from "firebase";
+import { selectuser } from "../features/appSlice";
 
 function Preview() {
   let cameraimage = useSelector(selectcamera);
   let history = useHistory();
   let dispatch = useDispatch();
+  let user = useSelector(selectuser);
   useEffect(() => {
     if (!cameraimage) {
       history.replace("/");
@@ -49,10 +51,11 @@ function Preview() {
           .getDownloadURL()
           .then((url) => {
             db.collection("posts").add({
+              //taking data from store
               imageUrl: url,
-              username: "vibhu mishra",
+              username: user.username,
               read: false,
-              //profile
+              profilepic: user.profilepic,
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             });
             history.replace("/chats");

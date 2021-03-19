@@ -4,5 +4,21 @@
   align-items: center;
   justify-content: center;
   background-color: #fefc01;
-  height: 100vh;
+  height: 140vh;
+}
+.app__logo {
+  object-fit: contain;
+  height: 100px;
+}
+.app__body {
+  background: url("https://www.pngkey.com/png/full/859-8598072_picture-freeuse-library-silhouette-mobile-at-getdrawings-cell.png")
+    no-repeat center;
+  background-size: contain;
+  height: 400px;
+  width: 250px;
+  padding: 74px;
+}
+.app__bodybackground {
+  background-color: #fff;
+  height: 400px;
 }

@@ -14,6 +14,8 @@ import { auth } from "./firebase";
 function App() {
   const user = useSelector(selectuser); //taking user from store
   const dispatch = useDispatch();
+  const image = window.location.origin + "/snap.png";
+  const iphone = window.location.origin + "/iphone.png";
   useEffect(() => {
     auth.onAuthStateChanged((authuser) => {
       //checking use status
@@ -37,22 +39,28 @@ function App() {
         {!user ? (
           <Login />
         ) : (
-          <div className="app__body">
-            <Switch>
-              <Route exact={true} path="/">
-                <WebcampCapture />
-              </Route>
-              <Route path="/preview">
-                <Preview />
-              </Route>
-              <Route path="/chat/view">
-                <Chatview />
-              </Route>
-              <Route exact path="/chats">
-                <Chats />
-              </Route>
-            </Switch>
-          </div>
+          <>
+            <img src={image} alt="snapchat__logo" className="app__logo" />
+            <div className="app__body">
+              {/* <img src={iphone} alt="iphone" /> */}
+              <div className="app__bodybackground">
+                <Switch>
+                  <Route exact={true} path="/">
+                    <WebcampCapture />
+                  </Route>
+                  <Route path="/preview">
+                    <Preview />
+                  </Route>
+                  <Route path="/chat/view">
+                    <Chatview />
+                  </Route>
+                  <Route exact path="/chats">
+                    <Chats />
+                  </Route>
+                </Switch>
+              </div>
+            </div>
+          </>
         )}
       </BrowserRouter>
     </div>
